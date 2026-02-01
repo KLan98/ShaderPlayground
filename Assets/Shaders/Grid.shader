@@ -27,12 +27,13 @@ Shader "Unlit/Grid"
 
             void main()
             {
-                int dimension = 1; // 10x10
-                vec3 cells = fract(vec3(vUvs, 1.0) * dimension);
-                // cells = abs(cells - 0.5);
+                int dimension = 5;
+                vec3 cells = fract(vec3(vUvs, 1.0) * dimension); 
 
-                float distance = 1 - max(cells.x, cells.y);
-                float cellLine = smoothstep(0, 0.1, distance);
+                cells = abs(cells - 0.5); 
+
+                float distance = 0.5 - max(cells.x, cells.y);
+                float cellLine = smoothstep(0, 0.01, distance); 
                 
                 gl_FragColor = vec4(vec3(cellLine), 1.0);
             }
