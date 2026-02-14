@@ -2,6 +2,7 @@ Shader "Unlit/GridUV"
 {
     Properties
     {
+        // _Distance
     }
     SubShader
     {
@@ -32,16 +33,21 @@ Shader "Unlit/GridUV"
 
             void main()
             {
-                vec3 cell = vec3(REPEAT(vUvs, 2), 0.0); // repeat uv with dimension = x
+                vec3 cell = vec3(REPEAT(vUvs, 10), 0.0);
 
-                cell = abs(cell - 0.5); // distance between the cell and 0.5
+                float chebyDistance = max(abs(cell.x - 0.5), abs(cell.y - 0.5)); 
 
-                float chebyDistance = max(cell.x, cell.y); // Chebyshew distance
-                float distance = 1- 10 * chebyDistance;
+                float manDistance = abs(cell.x - 0.5) + abs(cell.y - 0.5);
 
-                // float distance = 1 - 2 * chebyDistance;
+                float eucliDistance = sqrt(pow(cell.x - 0.5, 2) + pow(cell.y - 0.5, 2));
 
-                float outputColor = smoothstep(0, 0.1, distance);
+                // float distanceToCell = 1 - 2 * chebyDistance;
+
+                // float distanceToCell = 1 - 2 * manDistance;
+
+                float distanceToCell = 1 - 2 * eucliDistance;
+
+                float outputColor = smoothstep(0, 0.1, distanceToCell);
 
                 gl_FragColor = vec4(vec3(outputColor), 1.0);
             }
