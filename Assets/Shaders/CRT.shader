@@ -2,7 +2,7 @@ Shader "Unlit/CRT"
 {
     Properties
     {
-                _TimeScale ("Speed", Float) = 1.0
+        _TimeScale ("Speed", Float) = 1.0
     }
     SubShader
     {

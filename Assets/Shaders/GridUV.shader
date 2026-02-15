@@ -33,7 +33,7 @@ Shader "Unlit/GridUV"
 
             void main()
             {
-                vec3 cell = vec3(REPEAT(vUvs, 10), 0.0);
+                vec2 cell = REPEAT(vUvs, 10);
 
                 float chebyDistance = max(abs(cell.x - 0.5), abs(cell.y - 0.5)); 
 
