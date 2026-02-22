@@ -46,9 +46,9 @@ Shader "Unlit/CRT"
                 float v = remap(sin(200 * vUvs.y+t*10), -1.0, 1.0, 0.9, 1.0);
                 float v2 = remap(sin(40 * vUvs.y-t*2), -1.0, 1.0, 0.9, 1.0);
                 
-                vec3 color = vec3(v * v2);
+                vec3 color = vec3(v * v2); // (a, a, a)
 
-                gl_FragColor = vec4(color, 1.0);
+                gl_FragColor = vec4(color, 0.0);
             }
 
             #endif
