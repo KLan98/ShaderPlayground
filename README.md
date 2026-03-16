@@ -13,4 +13,5 @@ Applied GLSL built-in and non built-in functions:
 Remap, Max, Min, Step, Smoothstep, Clamp, Sat, Fract...
 
 Demonstration:
-
+[<video src="assets/demo.mp4" controls width="600"></video>
+](https://github.com/KLan98/ShaderPlayground/Assets/demo.mp4)
