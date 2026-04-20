@@ -60,7 +60,6 @@ Shader "Unlit/HoveringCircle"
             #endif
             
             ENDGLSL
-
         }
     }
 }
