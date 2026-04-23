@@ -49,6 +49,8 @@ Shader "Unlit/VaryingIndeptCube"
                 // remap the x component of local space pos of object from (-0.5, 0.5) to (0.0, 1.0)
                 float t = Remap(localSpacePosition.x, -0.5, 0.5, 0.0, 1.0);
 
+                // outputColor = vec3(0.0, 1.0 - EaseInSine(t), EaseInSine(t))
+                // outputColor = interpolated color value of the vertex shader
                 outputColor = vec3(mix(green, blue, EaseInSine(t)));
             }
 
@@ -95,11 +97,11 @@ Shader "Unlit/VaryingIndeptCube"
                 if (t > 0.5)
                 {
                     // graph + fragment color
-                    float val = EaseInSine(Remap(localSpacePosition.x, -0.5, 0.5, 0.0, 1.0));
-                    color = mix(green, blue, val);
+                    float function = EaseInSine(Remap(localSpacePosition.x, -0.5, 0.5, 0.0, 1.0));
+                    color = mix(green, blue, function);
 
                     float localT = Remap(t, 0.5, 1.0, 0.0, 1.0);
-                    float distanceToNonLinearFunc = abs(localT - val);
+                    float distanceToNonLinearFunc = abs(localT - function);
                     float nonLinearGraph = smoothstep(0.0, thickness, distanceToNonLinearFunc);
                     color = mix(vec3(1), color, nonLinearGraph);
                 }
@@ -107,15 +109,15 @@ Shader "Unlit/VaryingIndeptCube"
                 else
                 {
                     // graph
-                    float val = outputColor.b;                    
-                    float localT = Remap(t, 0, 0.5, 0.0, 1.0);          
-                    float distanceToLinearGraph = abs(localT - val);
-                    float linearGraph = smoothstep(0.0, thickness, distanceToLinearGraph);
-                    color = mix(vec3(1), color, linearGraph);
+                    float interpolatedBlueChannel = outputColor.b;           
+                    float yAxis = Remap(t, 0.0, 0.5, 0.0, 1.0);
+                    float distanceToVaryingCurve = abs(yAxis - interpolatedBlueChannel);
+                    float varyingCurveMask = smoothstep(0.0, thickness, distanceToVaryingCurve);
+                    color = mix(vec3(1), color, varyingCurveMask);
                 }
 
                 color = mix(vec3(1), color, separationLine);
-                
+                    
                 gl_FragColor = vec4(color, 1.0);
             }
 
