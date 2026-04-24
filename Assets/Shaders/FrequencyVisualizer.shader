@@ -81,6 +81,7 @@ Shader "Unlit/FrequencyVisualizer"
 
                 for(int i = 0; i < _Octaves; i++)
                 {
+                    // the function is sine wave
                     y += sin(frequency * x) * amplitude;
                     amplitude *= _Persistence;
                     frequency *= _Lacuranity;
@@ -115,32 +116,21 @@ Shader "Unlit/FrequencyVisualizer"
                 float thickness = 0.005;
 
                 float zAxis = REMAP(localSpacePosition.z, -zVertRange, zVertRange, 0.0, normalizedRange);
+                float xAxis = REMAP(localSpacePosition.x, -5.0, 5.0, 0.0, normalizedRange);
 
                 float function = 0.5;
                 float distanceToFunction = abs(zAxis - function);
                 float lineMask = 1 - smoothstep(0.0, thickness, distanceToFunction);
+                outputColor = vec3(mix(_White.xyz, _Blue.xyz, lineMask));
 
-                if (zAxis > 0.5)
-                {
-                    // draw a line at 0.5
-
-                    // float localYAxis = REMAP(zAxis, 0.5, 1.0, 0.0, 1.0);
-                }
-
-                else
-                {
-                }
-
-                vec2 pixelCoords = vec2((UV.x - 0.5) * 1080, (UV.y - 0.5) * 1920);
+                vec2 pixelCoords = vec2(xAxis * 1920, (zAxis - 0.5) * 1080);
+                float pixelSize = 1;
 
                 // Draw graph of our function
-                float distToFunction = plotFunction(pixelCoords, 2.0, time * 96.0);
-                vec3 lineColour = _Red.xyz * mix(1.0, 0.25, smoothstep(0.0, 3.0, distToFunction));
-                float lineBorder = smoothstep(4.0, 6.0, distToFunction);
+                float distToFunction = plotFunction(pixelCoords, pixelSize, time * _TimeScale);
+                float waveMask = 1 - smoothstep(0.0, 4.0, distToFunction);
 
-
-                outputColor = vec3(mix(_White.xyz, _Blue.xyz, lineMask));
-                outputColor = vec3(mix(lineColour, outputColor, lineBorder));
+                outputColor = vec3(mix(outputColor, _Red.xyz, waveMask));
 
                 gl_FragColor = vec4(outputColor, 1);
             }

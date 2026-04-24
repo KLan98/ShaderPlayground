@@ -68,13 +68,13 @@ Material:
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
-    - _Lacuranity: 3.14
+    - _Lacuranity: 1.89
     - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1
-    - _Octaves: 3.32
+    - _Octaves: 2.83
     - _Parallax: 0.02
-    - _Persistence: 0.5
+    - _Persistence: 2.86
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
