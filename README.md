@@ -1,3 +1,4 @@
+# ShaderPlayground
 This project contains a collection of GLSL shaders designed for use in Unity-based graphics applications. The shaders demonstrate various rendering techniques such as lighting, real-time GPU-based rendering effects, Custom vertex and fragment shaders written in GLSL.
 
 Although Unity primarily uses HLSL/ShaderLab, GLSL shaders can be utilized through OpenGL-compatible rendering pipelines or converted into Unity-compatible shader formats. The goal of this project is to showcase shader programming concepts that can be integrated into Unity workflows.
