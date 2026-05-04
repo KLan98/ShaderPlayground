@@ -33,14 +33,12 @@ Shader "Unlit/VertexTransformation"
                 float t = _Time.y * _TimeScale;
 
                 localSpacePosition.xyz = RotateY(t) * localSpacePosition.xyz;
-                localSpacePosition.x += sin(t); 
+                // localSpacePosition.x += sin(t); 
 
                 // invalid since we need to manually transform the localSpacePosition into clip space
                 // gl_Position = gl_ModelViewProjectionMatrix * gl_Vertex;
                
                 gl_Position = gl_ModelViewProjectionMatrix * localSpacePosition;
-
-
             }
 
             #endif
