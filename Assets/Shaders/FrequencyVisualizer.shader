@@ -62,6 +62,7 @@ Shader "Unlit/FrequencyVisualizer"
                 return mix(outMin, outMax, value);
             }
 
+            // sdfLine -> r = 0 
             float sdfLine(vec2 p, vec2 a, vec2 b) {
                 vec2 pa = p - a;
                 vec2 ba = b - a;
